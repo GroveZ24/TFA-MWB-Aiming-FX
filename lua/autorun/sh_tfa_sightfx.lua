@@ -35,22 +35,21 @@ if CLIENT then
 		render.SetMaterial(addmat_b)
 		render.DrawScreenQuadEx(-bx / 2, -by / 2, ScrW() + bx, ScrH() + by)
 	end
-	
+
 	--https://sun9-87.userapi.com/impg/eCD-9b7mayfh2MTgPQae32CPIwETyRscE0bpug/WISKuiyr1lM.jpg?size=604x601&quality=96&sign=317145f427668884d7f728a4ba59c70d&type=album
 
 	hook.Add("RenderScreenspaceEffects", "TFA_SightFX", function()
 		local ply = LocalPlayer()
 		local wep = ply:GetActiveWeapon()
-		local ADSProgress = wep.IronSightsProgress
+		local ADSProgress = wep.IronSightsProgress or 0
 
-		if not wep.IsTFAWeapon then return end
 		if not ply:Alive() then return end
 		if not tfa_sightfx_enabled:GetBool() then return end
 		if ply:IsNPC() then return end
 
 		local VignetteTexture = surface.GetTextureID("tfa_sightfx/vignette/vignette")
 
-		local SightFXVignetteMultiplier = tfa_sightfx_vignette_intensity_initially_multiplier:GetFloat() + (ADSProgress * -tfa_sightfx_vignette_intensity_sighted_multiplier:GetFloat()) -- 0.5 + (ADSProgress * -0.25)
+		local SightFXVignetteMultiplier = tfa_sightfx_vignette_intensity_initially_multiplier:GetFloat() + (ADSProgress * -tfa_sightfx_vignette_intensity_sighted_multiplier:GetFloat())
 		local SightFXCAMultiplier = tfa_sightfx_ca_intensity_initially_multiplier:GetFloat() + (ADSProgress * tfa_sightfx_ca_intensity_sighted_multiplier:GetFloat())
 
 		surface.SetTexture(VignetteTexture)
