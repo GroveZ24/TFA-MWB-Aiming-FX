@@ -40,15 +40,11 @@ if CLIENT then
 		local ply = LocalPlayer()
 		local wep = ply:GetActiveWeapon()
 
-		if not ply:Alive() then return end
 		if not tfa_aimingfx_enabled:GetBool() then return end
 		if ply:IsNPC() then return end
 
 		local ADSProgress = wep.IronSightsProgress or 0
 		local VignetteTexture = surface.GetTextureID("aimingfx/vignette/vignette")
-
-		local intensity_initially = 0.75
-		local intensity_sighted = 0.5
 
 		local AimingFXVignetteMultiplier = tfa_aimingfx_vignette_intensity_initially_multiplier:GetFloat() + (ADSProgress * (-tfa_aimingfx_vignette_intensity_sighted_multiplier:GetFloat() * tfa_aimingfx_vignette_intensity_initially_multiplier:GetFloat())) -- tfa_aimingfx_vignette_intensity_initially_multiplier:GetFloat() + (ADSProgress * -tfa_aimingfx_vignette_intensity_sighted_multiplier:GetFloat())
 		local AimingFXCAMultiplier = tfa_aimingfx_ca_intensity_initially_multiplier:GetFloat() + (ADSProgress * tfa_aimingfx_ca_intensity_sighted_multiplier:GetFloat())
